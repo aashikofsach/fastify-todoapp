@@ -12,21 +12,34 @@ const PORT = 8000;
 //   //   done();
 // });
 
-fastify.get("/ping",()=>{
-    // fastify.log.info("ping png and ping png")
-    return "pong"
-})
+fastify.get("/ping", () => {
+  // fastify.log.info("ping png and ping png")
+  return "pong";
+});
 
-// other ways is 
+// other ways is
 fastify.route({
-        url : "/hello",
-        method : "POST",
-        handler : function(req, res){
-            console.log(req.body)
-            return "world"
+  url: "/hello",
+  method: "POST",
+  handler: function (req, res) {
+    console.log(req.body);
+    console.log(fastify);
+    console.log("jai maata di")
+    return "world";
+  },
+});
 
-        }
-})
+function samplePlugin(fastify, options , done)
+{
+  console.log("executing my plugin ")
+  console.log(fastify);
+  fastify.decorate("key", "value");
+  console.log(fastify)
+  done() ;
+
+} ;
+
+fastify.register(samplePlugin, {})
 
 async function start() {
   try {
